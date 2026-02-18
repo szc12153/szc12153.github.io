@@ -1,425 +1,830 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-   <script> 
-
-        function previewImage(replace_id, new_src)
-        {
-            var img = document.getElementById(replace_id);
-            img.src=new_src;
-            return false;
-        }
-
-        function resetImage(replace_id, new_src=null)
-        {
-            var img = document.getElementById(replace_id);
-            if (new_src!==null){
-                resetImage.reset_to_img=new_src;
-                return false;
-            }  
-            img.src=resetImage.reset_to_img;
-            return false;
-        }
-        resetImage.reset_to_img="resources/overview.png"
-
-        function changeImage(replace_id, new_src){
-            var img = document.getElementById(replace_id);
-            img.src=new_src;
-            resetImage(replace_id, new_src);
-            return false;
-        }
-
-
-  </script>
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shengzhuang Chen</title>
+    <meta name="author" content="Shengzhuang Chen">
+    <meta name="description" content="Shengzhuang Chen – PhD student at Imperial College London. Research on foundation model adaptation, meta-learning, and mixture-of-experts.">
 
-    <title>SMAT</title>
-    <meta name="author" content="SMAT" />
-    <meta name="generator" content="Org Mode" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        .title  { text-align: center;
-                 margin-bottom: .2em; }
-        .subtitle { text-align: center;
-                    font-size: medium;
-                    font-weight: bold;
-                    margin-top:0; }
-        .todo   { font-family: monospace; color: red; }
-        .done   { font-family: monospace; color: green; }
-        .priority { font-family: monospace; color: orange; }
-        .tag    { background-color: #eee; font-family: monospace;
-                   padding: 2px; font-size: 80%; font-weight: normal; }
-        .timestamp { color: #bebebe; }
-        .timestamp-kwd { color: #5f9ea0; }
-        .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-        .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-        .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-        .underline { text-decoration: underline; }
-
-        .figure-slarge img {
-            width: 100%; /* width for large figure */
-            display: block;
-            margin: 0 auto; /* center image */
+        :root {
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-bg: #eff6ff;
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --bg: #ffffff;
+            --bg-card: #f8fafc;
+            --border: #e2e8f0;
+            --radius: 8px;
         }
 
-        .figure-large img {
-            width: 75%; /* width for large figure */
-            display: block;
-            margin: 0 auto; /* center image */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .figure-medium img {
-            width: 50%; /* width for medium figure */
-            display: block;
-            margin: 0 auto; /* center image */
+        .container {
+            max-width: 72%;
+            margin: 0 auto;
+            padding: 0 32px;
         }
 
-        /* other figure styles can go here */
-
-        @media screen and (max-width: 650px) { /* adjust the pixel value based on your design */
-        .figure-slarge img, .figure-large img, .figure-medium img {
-            width: 100%; /* full width on smaller screens */
-            }
+        /* ---- Navigation ---- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
         }
 
-        img {
-            max-width: 100%;
-            height: auto; /* Maintains the aspect ratio */
-            padding-right: 2%;
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 52px;
+        }
+
+        nav .nav-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: color 0.2s;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        nav .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px;
+            transition: width 0.3s ease;
+        }
+
+        nav .nav-links a:hover { color: var(--accent); }
+        nav .nav-links a:hover::after { width: 100%; }
+
+        /* ---- Hero / About ---- */
+        .hero {
+            padding: 56px 0 48px;
+        }
+
+        .hero-photo {
+            float: right;
+            margin: 0 0 16px 32px;
+        }
+
+        .hero-photo img {
+            width: 180px;
+            height: 220px;
+            border-radius: 14px;
+            object-fit: cover;
+            object-position: center 15%;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
+
+        .hero h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .hero-email {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            letter-spacing: 0.01em;
+        }
+
+        .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .hero-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .hero-links a:hover { color: var(--accent); }
+
+        .hero-bio {
+            font-size: 0.98rem;
+            color: var(--text);
+            line-height: 1.72;
+        }
+
+        .hero-bio a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .hero-bio a:hover { text-decoration: underline; }
+
+
+        /* ---- Section ---- */
+        .section {
+            padding: 36px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        /* ---- Interest Tags ---- */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border-radius: 100px;
+            background: var(--accent-bg);
+            color: var(--accent);
+            border: 1px solid #dbeafe;
+        }
+
+        /* ---- News ---- */
+        .news-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .news-list::-webkit-scrollbar { width: 4px; }
+        .news-list::-webkit-scrollbar-track { background: transparent; }
+        .news-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        .news-row {
+            display: flex;
+            gap: 16px;
+            padding: 6px 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .news-row .date {
+            flex-shrink: 0;
+            width: 76px;
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
+        .news-row .body { color: var(--text); }
+
+        /* ---- Publication Card ---- */
+        .pub {
+            display: flex;
+            gap: 20px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: border-color 0.2s;
+        }
+
+        .pub:hover { border-color: var(--accent-light); }
+
+        .pub-thumb {
+            flex-shrink: 0;
+            width: 200px;
+            align-self: stretch;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 4px 0;
+        }
+
+        .pub-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+
+        .pub-body { flex: 1; min-width: 0; }
+
+        .pub-title {
+            font-size: 0.97rem;
+            font-weight: 600;
+            line-height: 1.35;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .pub-authors {
+            font-size: 0.87rem;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+
+        .pub-venue {
+            font-size: 0.87rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .pub-venue .oral-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #dc2626;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            padding: 1px 6px;
+            margin-left: 6px;
             vertical-align: middle;
         }
 
-        figure {
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .pub-links { display: flex; gap: 10px; flex-wrap: wrap; }
 
-        table { table-layout: fixed; }
-        td {
-            width: 50%;
-        }
-
-        body {
-            max-width: 1080px;
-            padding: 10px;
-            padding-top: 25px;
-            padding-bottom: 40px;
-            margin: 0 auto;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-weight: 375;
-            background-color: #fdfdfd;
-            line-height: 1.3;
-        }
-
-        strong{
-            font-family: 'Noto Sans KR', sans-serif;
+        .pub-links a {
+            font-size: 0.82rem;
             font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            transition: all 0.15s;
         }
 
-        h1 {
-            margin-top: 0;
-            line-height: 1;
+        .pub-links a:hover {
+            background: var(--accent-bg);
+            border-color: var(--accent-light);
+        }
+
+        .pub-abstract {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-top: 10px;
+            display: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .pub.abs-hover .pub-abstract,
+        .pub.abs-pinned .pub-abstract {
+            display: block;
+        }
+
+        .abstract-toggle {
+            font-size: 0.82rem;
             font-weight: 500;
+            color: var(--accent);
+            cursor: pointer;
+            margin-top: 6px;
+            display: inline-block;
         }
 
-        h2 {
-            border-bottom: 1px solid #ddd;
-            margin-top: 1.3em;
-            margin-bottom: 0em;
-            padding-bottom: 4px;
-            font-weight: 500;
-        }
+        .abstract-toggle:hover { text-decoration: underline; }
 
-        li {
-           margin: 7px 0;
-          }
-
-        a { 
-            color:#1772d0; 
-            text-decoration-line: none;
-        }
-        a:hover {
-            color:#f09228; 
-        }
-
-        .footer {
-            padding-top: 10px;
-        }
-
-        .footer-cover {
-            background-color: #f5f5f5;
-            padding-left: 0;
-            padding-right: 0;
-            margin-top: 50px;
-            height: 80px;
-        }
-
-        .responsive-iframe {
-            width: 650px;
-            height: 350px;
-            max-width: 100%;
-            margin: auto; /* Center the iframe */
-        }
-
-        .responsive-iframe iframe {
-            width: 100%;
-            height: 100%;
-        }
-
-
-
-        /* CSS */
-        .button-80 {
-        background-color: #fff;
-        border: 0 solid #e2e8f0;
-        border-radius: 1.5rem;
-        box-sizing: border-box;
-        color: #0d172a;
-        cursor: pointer;
-        display: inline-block;
-        font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-        font-size: 1.1rem;
-        font-weight: 600;
-        line-height: 1;
-        padding: 1rem 1.6rem;
-        text-align: center;
-        text-decoration: none #0d172a solid;
-        text-decoration-thickness: auto;
-        transition: all .1s cubic-bezier(.4, 0, .2, 1);
-        box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        }
-
-        .button-80:hover {
-        background-color: #1e293b;
-        color: #fff;
-        }
-
-        .button-80:focus{
-        background-color: #1e293b;
-        color: #fff;
-        }
-
-        @media (min-width: 768px) {
-                .button-80 {
-                font-size: 1.125rem;
-                padding: 1rem 2rem;
-            }
-        } 
-
-        .button-container {
-            margin: auto;
-            width: 90%;
+        .pub-tags {
             display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
         }
 
-        @media screen and (max-width: 650px){
-            .responsive-iframe {
-                max-width: 100%;
-            }
-            /* .button-80{
-                max-width: 50%;
-            } */
+        .pub-tags .kw {
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
         }
 
+        /* ---- Timeline Item (Experience, Education, Awards) ---- */
+        .timeline-item {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:last-child { border-bottom: none; }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .timeline-role {
+            font-size: 0.97rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .timeline-org {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* ---- Compact List (Awards, Activities) ---- */
+        .compact-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .compact-item:last-child { border-bottom: none; }
+
+        .compact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .compact-name {
+            font-size: 0.93rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .compact-date {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .compact-sub {
+            font-size: 0.87rem;
+            color: var(--text-secondary);
+        }
+
+        /* ---- Footer ---- */
+        footer {
+            text-align: center;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 1100px) {
+            .container { max-width: 88%; }
+        }
+
+        @media (max-width: 700px) {
+            .container { max-width: 100%; padding: 0 18px; }
+            .hero { padding: 36px 0 32px; }
+            .hero-photo { float: none; margin: 0 auto 20px; display: block; text-align: center; }
+            .hero-photo img { width: 140px; height: 170px; }
+            .hero h1 { font-size: 1.5rem; text-align: center; }
+            .hero-email { text-align: center; }
+            .hero-links { justify-content: center; }
+            .timeline-header { flex-direction: column; gap: 2px; }
+            .compact-header { flex-direction: column; gap: 2px; }
+            .pub { flex-direction: column; }
+            .pub-thumb { width: 100%; height: 160px; align-self: auto; }
+            nav .nav-links { gap: 14px; }
+            nav .nav-links a { font-size: 0.78rem; }
+            .news-row { flex-direction: column; gap: 2px; }
+            .news-row .date { width: auto; }
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
-  </head>
-  <body>
-  	<br>
-  	<br>
-  	<span style="font-size:26px; color:#000;">
-            <b>
-            	<center>
-                Unleashing the Power of Meta-tuning for Few-shot Generalization <br> Through Sparse Interpolated Experts 
-               </center>
-            </b>
-	</span>
-		<br>
-    <table align=center width=600px>
-        <tr>
-        <center>
-        <div style="font-size:18px; text-align: center">
-            <a href="https://openreview.net/profile?id=~Shengzhuang_Chen1">Shengzhuang Chen</a><sup>1</sup>, &nbsp; 
-            <a href="https://jihoontack.github.io">Jihoon Tack</a><sup>2</sup>, &nbsp; 
-            <a href="https://scholars.cityu.edu.hk/en/persons/yunqiao-yang(cdb8b84d-9096-46e6-abe1-6a8f0b5f30b8)/publications.html">Yunqiao Yang</a><sup>1</sup>, &nbsp; 
-            <a href='https://www.stats.ox.ac.uk/~teh/'>Yee Whye Teh</a><sup>3</sup>, &nbsp;
-            <a href='https://jonathan-schwarz.github.io/'>Jonathan Richard Schwarz</a><sup>4</sup>°,&nbsp;
-            <a href="https://wei-ying.net/">Ying Wei</a><sup>5</sup>° &nbsp; 
-        </div>
+</head>
 
-        <br>
-                
-        <span style="font-size:16px; text-align: center">
-            <sup>1</sup> CityU Hong Kong &nbsp; &nbsp; 
-            <sup>2</sup> KAIST &nbsp; &nbsp; 
-            <sup>3</sup> University of Oxford&nbsp; 
-            <sup>4</sup> Harvard University &nbsp; 
-            <sup>5</sup> NTU &nbsp;
-        </span>
-        <br>
-        <br>
-        <span style="font-size:13px; text-align: center">
-            °Joint senior authorship, equal contribution &nbsp; &nbsp; 
-        </span>
-        
-        <br>
-        <br>
-
-        <div class="paper-btn-parent">
-            <a href="https://arxiv.org/abs/2403.08477">
-            [<b>arXiv</b>]
-            </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="https://github.com/szc12153/sparse_meta_tuning">
-            [<b>Code</b>]
-            </a>
+<body>
+    <nav>
+        <div class="container">
+            <a class="nav-name" href="#">Shengzhuang Chen</a>
+            <div class="nav-links">
+                <a href="#news">News</a>
+                <a href="#publications">Publications</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
             </div>
-        </center>
-        </tr>
-        </table>
+        </div>
+    </nav>
 
-    <div id="outline-container-orgc5d597d" class="outline-2">
-    <h2 id="orgc5d597d">Abstract</h2>
-    <div class="outline-text-2" id="text-orgc5d597d">
-    <p style="text-align:justify">
-        Conventional wisdom suggests parameter efficient fine-tuning of foundation models as the
-state-of-the-art method for transfer learning in
-vision, replacing the rich literature of alternatives
-such as meta-learning. In trying to harness the
-best of both worlds, meta-tuning introduces a subsequent optimization stage of foundation models
-but has so far only shown limited success and
-crucially tends to underperform on out-of-distribution
-(OOD) tasks. In this paper, we introduce Sparse
-MetA-Tuning (SMAT), a method inspired by
-sparse mixture-of-experts approaches and trained
-to isolate subsets of pre-trained parameters automatically for meta-tuning on each task. SMAT
-successfully overcomes OOD sensitivity and
-delivers on the promise of enhancing the transfer
-abilities of vision foundation models beyond
-parameter-efficient finetuning. We establish new
-state-of-the-art results on a challenging combination of Meta-Dataset augmented with additional
-OOD tasks in both zero-shot and gradient-based
-adaptation settings. In addition, we provide a
-thorough analysis of the superiority of learned
-over hand-designed sparsity patterns for sparse
-expert methods and the pivotal importance of the
-sparsity level in balancing between in-domain
-and out-of-domain generalization.
-    </p>
-    <br>
-    <div id="outline-container-orgc5d597d" class="outline-2">
-    <h2 id="orgc5d597d">Method</h2>
-    <div class="outline-text-2" id="text-orgc5d597d">
-    <p style="text-align:justify">
-        SMAT meta-learns a shared knowledge pool 
-        consists of 
-        sparse interpolated experts characterized by a common, learnable set of dense parameters 
-        and distinct, learnable sets of gating masks 
-        with sparsity constraints. To construct each task-specific model 
-        for both meta-training and inference, (1) SMAT first combines experts via a weighted-sum with merging weights 
-        generated by a meta-learned hypernetwork 
-        based on the task's support set 
-       . (2) The experts are then subsequently interpolated with the frozen pre-trained model 
-        to enhance both in-distribution (ID) and out-of-distribution (OOD) generalization performance. Alongside (3) the query prediction loss 
-       , (4) knowledge distillation with task-specific dense teachers 
-        is introduced during meta-training to promote specialization and cooperation of the sparse interpolated experts, ensuring optimization success.
-    </p>
-    <div class="button-container">
-        <button class="button-80" role="button" id="clickme" onmouseout="resetImage('methodoverview')" onclick="changeImage('methodoverview','resources/overview.png')" onmouseover="previewImage('methodoverview','resources/overview.png');">Overview</button>
-        <button class="button-80" role="button" id="clickme" onmouseout="resetImage('methodoverview')" onclick="changeImage('methodoverview','resources/pool.png')" onmouseover="previewImage('methodoverview','resources/pool.png');">Knowledge pool</button>
-        <button class="button-80" role="button" id="clickme" onmouseout="resetImage('methodoverview')" onclick="changeImage('methodoverview','resources/merge.png')" onmouseover="previewImage('methodoverview','resources/merge.png');">Expert selection</button>
-        <button class="button-80" role="button" id="clickme" onmouseout="resetImage('methodoverview')" onclick="changeImage('methodoverview','resources/teacher.png')" onmouseover="previewImage('methodoverview','resources/teacher.png');">Dense teacher</button>
-        <button class="button-80" role="button" id="clickme" onmouseout="resetImage('methodoverview')" onclick="changeImage('methodoverview','resources/inference.png')" onmouseover="previewImage('methodoverview','resources/inference.png');">Test-time inference</button>
-        
-    </div>
-   <figure class="figure-slarge">
-        <img id="methodoverview" src="resources/overview.png" />
-    </figure>	
-    <br>
+    <div class="container">
 
-    <div id="outline-container-orgc5d597d" class="outline-2">
-    <h2 id="orgc5d597d">Experimental Results</h2>
-    <div class="outline-text-2" id="text-orgc5d597d">
-    
-    <figure class="figure-large">
-  	 <img src="resources/results_table.png">
-	</figure>	
-	<p style="text-align:justify">
-        <strong>Few-shot testing performance</strong>:
-        We report the average in-distribution (ID) and out-of-distribution (OOD) few-shot testing performance of the meta-tuned models on the Meta-dataset benchmark augmented with additional OOD few-shot learning tasks. The results highlight that SMAT consistently achieves the best generalization performance among all methods across all evaluation settings, including direct inference without fine-tuning, gradient-based fine-tuning by fine-tuning the full model, and parameter-efficient fine-tuning using LoRA.
-	</p>
-	<br>
-    <br>
-
-
-    <figure class="figure-large">
-  	     <img src="resources/speedup.png">
-	</figure>
-	<p style="text-align:justify"><strong>Learning speedup</strong> (Left): SMAT yields better ID results with an attractive learning speedup while achieves and maintains high OOD generalization performance. </p>
-    <p style="text-align:justify"> <strong>Meta-tuning task diversities</strong> (Right): SMAT achieves both improved ID and OOD generalization performance over the baselines under all evaluated meta-tuning settings with various training task diversities.</p> 
-    <br>
-    <br>
-
-    <figure class="figure-large">
-        <img src="resources/tradeoff.png">
-    </figure>
-	<p style="text-align:justify"><strong>Sparsity finds optimal ID vs OOD trade-offs</strong> (Left): The sparsity level of experts essentially constrols the realtive strength of interpoaltion between pre-trained model and the meta-trained experts, therefore, establishes a trade-off between ID and OOD performance, with an optimal point usually existing between the extremes. </p>
-    <p style="text-align:justify"> <strong>Sparsity encourages specialization</strong> (Right):	Higher sparsity in SMAT potentially induces better meta-gradient alignment during meta-tuning, indicating a sign of development for each expert into a highly specialized region of parameters.</p>
-	<br>
-    <br>
-
-	<figure class="figure-slarge">
-  	     <img src="resources/visualization.png">
-	</figure>
-
-    <p style="text-align:justify"><strong>Meta-learned expert sparsity patterns</strong> (a-b,d): (a-b) Expert capacity (i.e., the number of non-zero parameters remaining after meta-tuning) grouped by (a) layer types, and (b) layer depth. (d) Overlap (of non-zero regions) between expert masks. The results indicate a noticeable deviation in meta-learned sparsity patterns among experts exists.</p>
-    <p style="text-align:justify"><strong>Implied task relationship</strong> (c): A dendrogram, produced based on expert selection scores, clearly shows hierarchical clustering according
-        to visual similarities between tasks.
-    <br>
-
-    <div id="outline-container-orgc5d597d" class="outline-2">
-    <h2 id="orgc5d597d">SMAT Explained</h2>
-    <div class="outline-text-2" id="text-orgc5d597d">
-    
-    <br />
-    <div class="responsive-iframe">
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/9gmSWfJdjtw?si=rRZNIa7i3wibwwaU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-
-    <div id="outline-container-orgc5d597d" class="outline-2">
-    <h2 id="orgc5d597d">Citation</h2>
-    <table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">        
-        <tr>
-            <td width="100%" style="background-color: #EEEEEE;">
-                <div style="font-size:14px;">
-                    <tt>
-			@inproceedings{chen2024unleashing,<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title={Unleashing the Power of Meta-tuning for Few-shot Generalization Through Sparse Interpolated Experts},<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author={Shengzhuang Chen and Jihoon Tack and Yunqiao Yang and Yee Whye Teh and Jonathan Richard Schwarz and Ying Wei},<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;booktitle={Forty-first International Conference on Machine Learning},<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;year={2024},<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url={https://openreview.net/forum?id=QhHMx51ir6}
-					}
-                    </tt>
+        <!-- Hero / About -->
+        <section class="hero">
+            <h1>Shengzhuang Chen</h1>
+            <div class="hero-email">sheng&lt;dot&gt;chen17[at]imperial&lt;dot&gt;ac&lt;dot&gt;uk</div>
+            <div class="hero-links">
+                <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AKKJWFcGV2VpeOydm_GZPmalX_Pg0MbUooMBvm1j-rzePhaAvQR0uh9uaSCafBE9OjC-sxW2raeaIRzKbIVGWg&user=kpKst1UAAAAJ"><i class="ai ai-google-scholar"></i> Scholar</a>
+                <a href="https://github.com/szc12153"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://x.com/szcjerry?lang=en"><i class="fab fa-twitter"></i> Twitter</a>
+            </div>
+            <div class="hero-bio">
+                <div class="hero-photo">
+                    <img src="resources/profile_pic.png" alt="Shengzhuang Chen">
                 </div>
-            </td>
-        </tr>
-    </table>
-</div>
+                <p>
+                    I am a third-year PhD student at <a href="https://www.imperial.ac.uk/">Imperial College London</a>, supervised by <a href="https://wei-ying.net/">Prof. Ying Wei</a>, <a href="https://jonathan-schwarz.github.io/">Prof. Jonathan Richard Schwarz</a>, and <a href="https://www.imperial.ac.uk/people/a.russo">Prof. Alessandra Russo</a>. Previously, I was a visiting student at <a href="https://zitniklab.hms.harvard.edu/">Harvard University</a> and a research scientist intern at <a href="https://www.thomsonreuters.com/">Thomson Reuters</a> Foundational Research, where I worked on LLM post-training. I graduated from Imperial College London with an MEng in Electrical and Electronic Engineering with first-class honours.
+                </p>
+                <br>
+                <p>
+                    My research focuses on machine learning generalization in dynamic, real-world scenarios. Through meta-learning, sparsity techniques, and data-centric approaches, I address the challenge of adapting foundation models to out-of-distribution downstream tasks, with the goal of improving data efficiency, generalization capability, and scalability. I have published multiple first-author papers at leading machine learning conferences including ICML, NeurIPS, ICLR, and ACL, and have won several awards for academic excellence.
+                </p>
+                <br>
+                <p>
+                    If you are interested in my work or would like to collaborate, feel free to reach out! &#128522;
+                </p>
+            </div>
+        </section>
 
-<h2 id="orgc5d597d"></h2>
+        <!-- News -->
+        <section class="section" id="news">
+            <h2 class="section-title">News</h2>
+            <div class="news-list">
+                <div class="news-row">
+                    <span class="date">Dec 2025</span>
+                    <span class="body">ADMIRE-BayesOpt accepted to TMLR.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Oct 2025</span>
+                    <span class="body">Invited talk on Data-Centric ML for LLMs at the Allen Institute for AI (AI2).</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Jul 2025</span>
+                    <span class="body">Presented SIMoE as an <strong>Oral</strong> at ACL 2025 in Vienna.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Jun 2025</span>
+                    <span class="body">Invited talk on Sparse Interpolated Mixture-of-Experts for LLM Upcycling at Qingke AI.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Jan 2025</span>
+                    <span class="body">Two papers accepted &mdash; CLDyB at ICLR 2025 and SIMoE at ACL 2025.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Jan 2025</span>
+                    <span class="body">Transferred PhD to Imperial College London.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Jan 2025</span>
+                    <span class="body">Started research scientist internship at Thomson Reuters Foundational Research.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Sep 2024</span>
+                    <span class="body">Paper on Learning Where to Edit Vision Transformers accepted to NeurIPS 2024.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">May 2024</span>
+                    <span class="body">Paper on Sparse Interpolated Experts for Few-Shot Generalization accepted to ICML 2024.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">May 2024</span>
+                    <span class="body">Started visiting research at Harvard Medical School, hosted by Prof. Marinka Zitnik.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Sep 2023</span>
+                    <span class="body">Paper on Secure OOD Task Generalization with EBMs accepted to NeurIPS 2023.</span>
+                </div>
+                <div class="news-row">
+                    <span class="date">Sep 2022</span>
+                    <span class="body">Awarded the Hong Kong PhD Fellowship (HKPFS).</span>
+                </div>
+            </div>
+        </section>
 
+        <!-- Selected Publications (first-author only) -->
+        <section class="section" id="publications">
+            <h2 class="section-title">Selected Publications</h2>
+
+            <!-- ADMIRE-BayesOpt – TMLR 2025 -->
+            <div class="pub">
+                <div class="pub-thumb">
+                    <img src="figures/admire_overview.png" alt="ADMIRE-BayesOpt overview">
+                </div>
+                <div class="pub-body">
+                    <div class="pub-title">ADMIRE-BayesOpt: Accelerated Data Mixture Re-weighting for Language Models with Bayesian Optimization</div>
+                    <div class="pub-authors"><strong><u>S. Chen</u></strong>, <u>X. Ouyang</u>, M. A. L. Pearce, T. Hartvigsen, J. R. Schwarz <span style="font-size:0.78rem;color:var(--text-muted);margin-left:4px;">(<span style="text-decoration:underline;">____</span> = equal contribution)</span></div>
+                    <div class="pub-venue">TMLR, 2025</div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2508.11551">Paper</a>
+                        <a href="https://github.com/xo28/ADMIRE-BayesOpt">Code</a>
+                    </div>
+                    <span class="abstract-toggle">Abstract</span>
+                    <div class="pub-abstract">We propose a multi-fidelity Bayesian optimization framework to efficiently search for optimal data mixture weights in LLM post-training. By leveraging cheap, low-fidelity proxy evaluations to guide the search, our method substantially reduces both the training and evaluation costs of mixture optimization while recovering high-quality data recipes.</div>
+                    <div class="pub-tags">
+                        <span class="kw">data-centric ML</span>
+                        <span class="kw">Bayesian optimization</span>
+                        <span class="kw">LLM post-training</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMoE – ACL 2025 Oral -->
+            <div class="pub">
+                <div class="pub-thumb">
+                    <img src="figures/simoe_overview.png" alt="SIMoE overview">
+                </div>
+                <div class="pub-body">
+                    <div class="pub-title">Automatic Expert Discovery in LLM Upcycling via Sparse Interpolated Mixture-of-Experts</div>
+                    <div class="pub-authors"><strong>S. Chen</strong>, Y. Wei, J. R. Schwarz</div>
+                    <div class="pub-venue">ACL 2025 <span class="oral-tag">Oral</span></div>
+                    <div class="pub-links">
+                        <a href="https://aclanthology.org/2025.acl-long.816/">Paper</a>
+                    </div>
+                    <span class="abstract-toggle">Abstract</span>
+                    <div class="pub-abstract">We introduce SIMoE, a method that automatically discovers domain-specialized experts from a dense LLM and assembles them into a sparse mixture-of-experts architecture. By interpolating between the original and fine-tuned parameters and learning a sparse router, SIMoE enables efficient LLM upcycling with strong multi-domain performance and improved parameter efficiency.</div>
+                    <div class="pub-tags">
+                        <span class="kw">LLM post-training</span>
+                        <span class="kw">mixture-of-experts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLDyB – ICLR 2025 -->
+            <div class="pub">
+                <div class="pub-thumb">
+                    <img src="figures/cldyb_overview.png" alt="CLDyB overview">
+                </div>
+                <div class="pub-body">
+                    <div class="pub-title">CLDyB: Towards Dynamic Benchmarking for Continual Learning with Pre-trained Models</div>
+                    <div class="pub-authors"><strong>S. Chen</strong>, Y. Liao, X. Sun, K. Ma, Y. Wei</div>
+                    <div class="pub-venue">ICLR 2025</div>
+                    <div class="pub-links">
+                        <a href="https://openreview.net/forum?id=RnxwxGXxex">Paper</a>
+                        <a href="https://github.com/szc12153/CLDyB">Code</a>
+                    </div>
+                    <span class="abstract-toggle">Abstract</span>
+                    <div class="pub-abstract">We present CLDyB, a dynamic benchmarking framework for continual learning with pre-trained models. Rather than relying on fixed task splits, CLDyB procedurally generates diverse and evolving task sequences, enabling more realistic evaluation of continual learning methods and better differentiating them under challenging distribution shifts.</div>
+                    <div class="pub-tags">
+                        <span class="kw">continual learning</span>
+                        <span class="kw">pre-trained models</span>
+                        <span class="kw">dynamic benchmarking</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SMAT – ICML 2024 -->
+            <div class="pub">
+                <div class="pub-thumb">
+                    <img src="figures/smat_overview.png" alt="SMAT overview">
+                </div>
+                <div class="pub-body">
+                    <div class="pub-title">Unleashing the Power of Meta-tuning for Few-shot Generalization Through Sparse Interpolated Experts</div>
+                    <div class="pub-authors"><strong>S. Chen</strong>, J. Tack, Y. Yang, Y. W. Teh, J. R. Schwarz, Y. Wei</div>
+                    <div class="pub-venue">ICML 2024</div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2403.08477">Paper</a>
+                        <a href="https://github.com/szc12153/sparse_meta_tuning">Code</a>
+                    </div>
+                    <span class="abstract-toggle">Abstract</span>
+                    <div class="pub-abstract">We propose SMAT, a meta-tuning approach that constructs sparse interpolated experts by blending pre-trained and fine-tuned model parameters. A learned sparse routing mechanism selects and combines these experts at test time, yielding strong few-shot generalization across diverse tasks with improved parameter efficiency.</div>
+                    <div class="pub-tags">
+                        <span class="kw">meta-learning</span>
+                        <span class="kw">few-shot learning</span>
+                        <span class="kw">mixture-of-experts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secure OOD – NeurIPS 2023 -->
+            <div class="pub">
+                <div class="pub-thumb">
+                    <img src="figures/ebm_overview.png" alt="EBML overview">
+                </div>
+                <div class="pub-body">
+                    <div class="pub-title">Secure Out-of-Distribution Task Generalization with Energy-Based Models</div>
+                    <div class="pub-authors"><strong>S. Chen</strong>, L.-K. Huang, J. R. Schwarz, Y. Du, Y. Wei</div>
+                    <div class="pub-venue">NeurIPS 2023</div>
+                    <div class="pub-links">
+                        <a href="https://openreview.net/forum?id=tt7bQnTdRm">Paper</a>
+                        <a href="https://github.com/NTU-LANTERN/EBML">Code</a>
+                    </div>
+                    <span class="abstract-toggle">Abstract</span>
+                    <div class="pub-abstract">We present a unified framework that leverages energy-based models to jointly detect and adapt to out-of-distribution tasks in few-shot settings. The energy function provides a principled score for OOD detection while also guiding task-conditional adaptation, enabling reliable generalization across diverse domains.</div>
+                    <div class="pub-tags">
+                        <span class="kw">meta-learning</span>
+                        <span class="kw">few-shot learning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Experience -->
+        <section class="section" id="experience">
+            <h2 class="section-title">Research Experience</h2>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-role">Research Scientist Intern (Foundational Research)</span>
+                    <span class="timeline-date">Jan &ndash; Jul 2025</span>
+                </div>
+                <div class="timeline-org">Thomson Reuters Ltd</div>
+                <div class="timeline-desc">LLM post-training. Supervised by Prof. Jonathan Richard Schwarz.</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-role">Visiting Student</span>
+                    <span class="timeline-date">May &ndash; Jul 2024</span>
+                </div>
+                <div class="timeline-org">Harvard Medical School, Harvard University</div>
+                <div class="timeline-desc">Instruction-tuning for LLMs, with an emphasis on improving downstream cross-task generalization performance. Hosted by Prof. Marinka Zitnik.</div>
+            </div>
+        </section>
+
+        <!-- Invited Talks -->
+        <section class="section">
+            <h2 class="section-title">Invited Talks</h2>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Data-Centric ML for LLMs</span>
+                    <span class="compact-date">Oct 2025</span>
+                </div>
+                <div class="compact-sub">Allen Institute for AI (AI2)</div>
+            </div>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Sparse Interpolated Mixture-of-Experts for LLM Upcycling</span>
+                    <span class="compact-date">Jun 2025</span>
+                </div>
+                <div class="compact-sub">Qingke AI</div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section" id="education">
+            <h2 class="section-title">Education</h2>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-role">Ph.D. in Computer Science</span>
+                    <span class="timeline-date">2025 &ndash; Present</span>
+                </div>
+                <div class="timeline-org">Imperial College London</div>
+                <div class="timeline-desc">Research on LLM post-training and meta-learning.</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-role">M.Eng. in Electrical and Electronic Engineering</span>
+                    <span class="timeline-date">2017 &ndash; 2021</span>
+                </div>
+                <div class="timeline-org">Imperial College London</div>
+                <div class="timeline-desc">First class honours; top 10% of the cohort.</div>
+            </div>
+        </section>
+
+        <!-- Awards -->
+        <section class="section" id="awards">
+            <h2 class="section-title">Awards &amp; Honours</h2>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Research Tuition Scholarship</span>
+                    <span class="compact-date">2024</span>
+                </div>
+                <div class="compact-sub">City University of Hong Kong &mdash; Awarded for outstanding research contributions and academic performance.</div>
+            </div>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">HKPFS Academic Excellence Award</span>
+                    <span class="compact-date">2024</span>
+                </div>
+                <div class="compact-sub">City University of Hong Kong &mdash; Recognizes exceptional academic achievements among HKPFS recipients.</div>
+            </div>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Hong Kong PhD Fellowship (HKPFS)</span>
+                    <span class="compact-date">2022</span>
+                </div>
+                <div class="compact-sub">Research Grants Council of Hong Kong &mdash; Highly competitive fellowship supporting outstanding doctoral students (&lt;5% acceptance rate).</div>
+            </div>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Nicholas Battersby Prize</span>
+                    <span class="compact-date">2021</span>
+                </div>
+                <div class="compact-sub">Imperial College London &mdash; Best Master Thesis in Analogue Electronics.</div>
+            </div>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Dean's List for Academic Excellence</span>
+                    <span class="compact-date">2017, 2018, 2021</span>
+                </div>
+                <div class="compact-sub">Imperial College London &mdash; Top 10% of the cohort for exceptional academic performance.</div>
+            </div>
+        </section>
+
+        <!-- Academic Service -->
+        <section class="section">
+            <h2 class="section-title">Academic Service</h2>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Conference Reviewer</span>
+                </div>
+                <div class="compact-sub">ICML, ICLR, NeurIPS, ACL, TMLR</div>
+            </div>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">Teaching Assistant</span>
+                    <span class="compact-date">2022 &ndash; 2025</span>
+                </div>
+                <div class="compact-sub">CS2402 Computational Probability Modeling (2024&ndash;2025) &middot; CS5491 Artificial Intelligence (2022&ndash;2023), City University of Hong Kong</div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container">&copy; 2026 Shengzhuang Chen. Last updated: February 2026.</div>
+    </footer>
+
+    <script>
+    document.querySelectorAll('.pub').forEach(pub => {
+        pub.addEventListener('mouseenter', () => {
+            if (!pub.classList.contains('abs-pinned')) pub.classList.add('abs-hover');
+        });
+        pub.addEventListener('mouseleave', () => {
+            pub.classList.remove('abs-hover');
+        });
+        const toggle = pub.querySelector('.abstract-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                pub.classList.toggle('abs-pinned');
+                pub.classList.remove('abs-hover');
+            });
+        }
+    });
+    </script>
 </body>
 </html>
-
