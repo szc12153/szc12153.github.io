@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shengzhuang Chen</title>
     <meta name="author" content="Shengzhuang Chen">
-    <meta name="description" content="Shengzhuang Chen – PhD student at Imperial College London. Research on foundation model adaptation, meta-learning, and mixture-of-experts.">
+    <meta name="description" content="Shengzhuang Chen – Final-year PhD student at Imperial College London and Lead Research Scientist at Thomson Reuters. Research on LLM post-training, continual learning, and the Thomson frontier model.">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -161,6 +161,29 @@
 
         .hero-bio a:hover { text-decoration: underline; }
 
+        /* ---- Hugging Face download counter ---- */
+        .hf-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 1px 8px;
+            text-decoration: none;
+        }
+
+        .hf-stat .stat-num {
+            color: var(--accent);
+            font-variant-numeric: tabular-nums;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .hf-stat:hover { border-color: var(--accent-light); }
 
         /* ---- Section ---- */
         .section {
@@ -175,6 +198,19 @@
             margin-bottom: 20px;
             color: var(--text);
         }
+
+        .subsection-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-muted);
+            margin: 4px 0 14px;
+        }
+
+        .subsection-title + .pub { margin-top: 0; }
+
+        .pub-group + .pub-group { margin-top: 26px; }
 
         /* ---- Interest Tags ---- */
         .tags {
@@ -221,6 +257,8 @@
         }
 
         .news-row .body { color: var(--text); }
+        .news-row .body a { color: var(--accent); text-decoration: none; }
+        .news-row .body a:hover { text-decoration: underline; }
 
         /* ---- Publication Card ---- */
         .pub {
@@ -235,6 +273,24 @@
         }
 
         .pub:hover { border-color: var(--accent-light); }
+
+        .pub.featured {
+            border: 1.5px solid #93c5fd;
+            background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 55%);
+        }
+
+        .featured-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #fff;
+            background: var(--accent);
+            border-radius: 4px;
+            padding: 2px 8px;
+            margin-bottom: 8px;
+        }
 
         .pub-thumb {
             flex-shrink: 0;
@@ -274,6 +330,24 @@
             color: var(--accent);
             margin-bottom: 8px;
         }
+
+        .pub-model {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.87rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .pub-model a.model-link {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .pub-model a.model-link:hover { text-decoration: underline; }
 
         .pub-venue .oral-tag {
             display: inline-block;
@@ -390,6 +464,12 @@
             line-height: 1.55;
         }
 
+        .timeline-desc ul {
+            margin: 8px 0 0 18px;
+        }
+
+        .timeline-desc li { margin-bottom: 5px; }
+
         /* ---- Compact List (Awards, Activities) ---- */
         .compact-item {
             padding: 10px 0;
@@ -486,15 +566,11 @@
                     <img src="resources/profile_pic.png" alt="Shengzhuang Chen">
                 </div>
                 <p>
-                    I am a third-year PhD student at <a href="https://www.imperial.ac.uk/">Imperial College London</a>, supervised by <a href="https://wei-ying.net/">Prof. Ying Wei</a>, <a href="https://jonathan-schwarz.github.io/">Prof. Jonathan Richard Schwarz</a>, and <a href="https://www.imperial.ac.uk/people/a.russo">Prof. Alessandra Russo</a>. Previously, I was a visiting student at <a href="https://zitniklab.hms.harvard.edu/">Harvard University</a> and a research scientist intern at <a href="https://www.thomsonreuters.com/">Thomson Reuters</a> Foundational Research, where I worked on LLM post-training. I graduated from Imperial College London with an MEng in Electrical and Electronic Engineering with first-class honours.
+                    I am a final-year PhD student at <a href="https://www.imperial.ac.uk/">Imperial College London</a>, supervised by <a href="https://jonathan-schwarz.github.io/">Prof. Jonathan Richard Schwarz</a> and <a href="https://www.imperial.ac.uk/people/a.russo">Prof. Alessandra Russo</a>. I am also a Lead Research Scientist at <a href="https://www.thomsonreuters.com/">Thomson Reuters</a> Foundational Research, where I work on mid- and post-training of large-scale LLMs for enterprise applications, including agentic and tool-use systems.
                 </p>
                 <br>
                 <p>
-                    My research focuses on machine learning generalization in dynamic, real-world scenarios. Through meta-learning, sparsity techniques, and data-centric approaches, I address the challenge of adapting foundation models to out-of-distribution downstream tasks, with the goal of improving data efficiency, generalization capability, and scalability. I have published multiple first-author papers at leading machine learning conferences including ICML, NeurIPS, ICLR, and ACL, and have won several awards for academic excellence.
-                </p>
-                <br>
-                <p>
-                    If you are interested in my work or would like to collaborate, feel free to reach out! &#128522;
+                    My research focuses on the data efficiency and generalization of LLM post-training, using meta-learning, sparsity, and data-centric methods. Previously, I was a visiting student at <a href="https://zitniklab.hms.harvard.edu/">Harvard University</a> and a PhD student at City University of Hong Kong with <a href="https://wei-ying.net/">Prof. Ying Wei</a>, supported by the Hong Kong PhD Fellowship (HKPFS). I graduated from Imperial with an MEng in Electrical and Electronic Engineering with first-class honours (top 10% of the cohort). I have published multiple first-author papers at ICML, NeurIPS, ICLR, ACL (including an Oral), and TMLR. If you are interested in my work or would like to collaborate, feel free to reach out! &#128522;
                 </p>
             </div>
         </section>
@@ -503,6 +579,12 @@
         <section class="section" id="news">
             <h2 class="section-title">News</h2>
             <div class="news-list">
+                <div class="news-row">
+                    <span class="date">Aug 2026</span>
+                    <span class="body">
+                        We released <a href="https://arxiv.org/html/2608.27147v1"><strong>Thomson</strong></a>, a family of frontier models built by continual learning on open-weight checkpoints for high-stakes professional work &mdash; I am honoured to be a primary author of the technical report. We also open-sourced the 35B <a href="https://huggingface.co/thomsonreuters/Thomson-1.0-Small">Thomson-1.0-Small</a> on Hugging Face.
+                    </span>
+                </div>
                 <div class="news-row">
                     <span class="date">Dec 2025</span>
                     <span class="body">ADMIRE-BayesOpt accepted to TMLR.</span>
@@ -554,16 +636,55 @@
             </div>
         </section>
 
-        <!-- Selected Publications (first-author only) -->
+        <!-- Selected Publications -->
         <section class="section" id="publications">
             <h2 class="section-title">Selected Publications</h2>
 
+            <div class="pub-group" id="reports">
+            <h3 class="subsection-title">Technical Reports</h3>
+
+            <!-- Thomson – arXiv 2026 -->
+            <div class="pub featured">
+                <div class="pub-thumb">
+                    <img src="figures/thomson_radar.svg" alt="Thomson Figure 1: per-category benchmark improvements">
+                </div>
+                <div class="pub-body">
+                    <div class="featured-badge">Featured</div>
+                    <div class="pub-title">Thomson: Continual Learning of Frontier Models for SovereignAI</div>
+                    <div class="pub-authors"><strong>S. Chen*</strong>, J. Parker*, Y. Bang*, A. M. Bean*, N. Seedat*, et al., J. R. Schwarz <span style="font-size:0.78rem;color:var(--text-muted);margin-left:4px;">(* = primary authors)</span></div>
+                    <div class="pub-venue">arXiv, 2026</div>
+                    <div class="pub-model">
+                        <span>Open-weight model: <a class="model-link" href="https://huggingface.co/thomsonreuters/Thomson-1.0-Small">Thomson-1.0-Small</a> (35B)</span>
+                        <a class="hf-stat" href="https://huggingface.co/thomsonreuters/Thomson-1.0-Small" title="Downloads reported by the Hugging Face Hub">
+                            <span class="stat-num thomson-downloads">&hellip;</span>
+                            <span class="stat-label">downloads on &#129303; Hugging Face</span>
+                        </a>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/html/2608.27147v1">Paper</a>
+                        <a href="https://huggingface.co/thomsonreuters/Thomson-1.0-Small">Model</a>
+                    </div>
+                    <span class="abstract-toggle">Abstract</span>
+                    <div class="pub-abstract">We argue that frontier performance is attainable by a wide range of institutions through continual learning on readily available open-weight models, rather than training from scratch. Thomson is a general-purpose frontier model family trained with an enhanced focus on high-stakes professional work. Through continual mid- and post-training with safeguards for plasticity and stability, Thomson shows a distinctive &pi;-shaped pattern: broad capability gains &mdash; including agentic Deep Research, legal, tax, and multilingual settings &mdash; while almost eliminating the forgetting typical of narrow domain adaptation. We open-source Thomson-1.0-Small (35B).</div>
+                    <div class="pub-tags">
+                        <span class="kw">continual pre-training</span>
+                        <span class="kw">LLM post-training</span>
+                        <span class="kw">continual learning</span>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="pub-group">
+            <h3 class="subsection-title">Conference &amp; Journal Publications</h3>
+
             <!-- ADMIRE-BayesOpt – TMLR 2025 -->
-            <div class="pub">
+            <div class="pub featured">
                 <div class="pub-thumb">
                     <img src="figures/admire_overview.png" alt="ADMIRE-BayesOpt overview">
                 </div>
                 <div class="pub-body">
+                    <div class="featured-badge">Featured</div>
                     <div class="pub-title">ADMIRE-BayesOpt: Accelerated Data Mixture Re-weighting for Language Models with Bayesian Optimization</div>
                     <div class="pub-authors"><strong><u>S. Chen</u></strong>, <u>X. Ouyang</u>, M. A. L. Pearce, T. Hartvigsen, J. R. Schwarz <span style="font-size:0.78rem;color:var(--text-muted);margin-left:4px;">(<span style="text-decoration:underline;">____</span> = equal contribution)</span></div>
                     <div class="pub-venue">TMLR, 2025</div>
@@ -582,11 +703,12 @@
             </div>
 
             <!-- SIMoE – ACL 2025 Oral -->
-            <div class="pub">
+            <div class="pub featured">
                 <div class="pub-thumb">
                     <img src="figures/simoe_overview.png" alt="SIMoE overview">
                 </div>
                 <div class="pub-body">
+                    <div class="featured-badge">Featured</div>
                     <div class="pub-title">Automatic Expert Discovery in LLM Upcycling via Sparse Interpolated Mixture-of-Experts</div>
                     <div class="pub-authors"><strong>S. Chen</strong>, Y. Wei, J. R. Schwarz</div>
                     <div class="pub-venue">ACL 2025 <span class="oral-tag">Oral</span></div>
@@ -602,7 +724,7 @@
                 </div>
             </div>
 
-            <!-- CLDyB – ICLR 2025 -->
+            <!-- CLDyB (ICLR 2025) hidden from selected publications
             <div class="pub">
                 <div class="pub-thumb">
                     <img src="figures/cldyb_overview.png" alt="CLDyB overview">
@@ -624,6 +746,7 @@
                     </div>
                 </div>
             </div>
+            -->
 
             <!-- SMAT – ICML 2024 -->
             <div class="pub">
@@ -669,6 +792,7 @@
                     </div>
                 </div>
             </div>
+            </div>
         </section>
 
         <!-- Research Experience -->
@@ -677,11 +801,11 @@
 
             <div class="timeline-item">
                 <div class="timeline-header">
-                    <span class="timeline-role">Research Scientist Intern (Foundational Research)</span>
-                    <span class="timeline-date">Jan &ndash; Jul 2025</span>
+                    <span class="timeline-role">Lead Research Scientist, Foundational Research</span>
+                    <span class="timeline-date">Jan 2025 &ndash; Present</span>
                 </div>
                 <div class="timeline-org">Thomson Reuters Ltd</div>
-                <div class="timeline-desc">LLM post-training. Supervised by Prof. Jonathan Richard Schwarz.</div>
+                <div class="timeline-desc">Continual pre-training and post-training of hundred-billion-parameter foundation models.</div>
             </div>
 
             <div class="timeline-item">
@@ -721,11 +845,20 @@
 
             <div class="timeline-item">
                 <div class="timeline-header">
-                    <span class="timeline-role">Ph.D. in Computer Science</span>
-                    <span class="timeline-date">2025 &ndash; Present</span>
+                    <span class="timeline-role">Ph.D. Candidate in Computer Science</span>
+                    <span class="timeline-date">2025 &ndash; Exp. EOY 2026</span>
                 </div>
                 <div class="timeline-org">Imperial College London</div>
-                <div class="timeline-desc">Research on LLM post-training and meta-learning.</div>
+                <div class="timeline-desc">Supervisors: Prof. Jonathan Richard Schwarz and Prof. Alessandra Russo.</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-role">Ph.D. Candidate in Computer Science</span>
+                    <span class="timeline-date">2022 &ndash; 2025</span>
+                </div>
+                <div class="timeline-org">City University of Hong Kong</div>
+                <div class="timeline-desc">Supervisor: Prof. Ying Wei. Transferred to Imperial College London in 2025.</div>
             </div>
 
             <div class="timeline-item">
@@ -741,6 +874,14 @@
         <!-- Awards -->
         <section class="section" id="awards">
             <h2 class="section-title">Awards &amp; Honours</h2>
+
+            <div class="compact-item">
+                <div class="compact-header">
+                    <span class="compact-name">PhD Scholarship, TR&ndash;Imperial Frontier AI Lab</span>
+                    <span class="compact-date">2025</span>
+                </div>
+                <div class="compact-sub">Thomson Reuters &amp; Imperial College London &mdash; Fully funded PhD studentship.</div>
+            </div>
 
             <div class="compact-item">
                 <div class="compact-header">
@@ -806,7 +947,7 @@
     </div>
 
     <footer>
-        <div class="container">&copy; 2026 Shengzhuang Chen. Last updated: February 2026.</div>
+        <div class="container">&copy; 2026 Shengzhuang Chen. Last updated: September 2026.</div>
     </footer>
 
     <script>
@@ -825,6 +966,42 @@
             });
         }
     });
+
+    (function loadThomsonDownloads() {
+        const nodes = document.querySelectorAll('.thomson-downloads');
+        if (!nodes.length) return;
+
+        function formatCount(n) {
+            return n.toLocaleString('en-US');
+        }
+
+        function animateCount(target) {
+            const duration = 900;
+            const start = performance.now();
+            function frame(now) {
+                const t = Math.min(1, (now - start) / duration);
+                const eased = 1 - Math.pow(1 - t, 3);
+                const value = formatCount(Math.round(target * eased));
+                nodes.forEach(el => { el.textContent = value; });
+                if (t < 1) requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        }
+
+        fetch('https://huggingface.co/api/models/thomsonreuters/Thomson-1.0-Small?expand[]=downloadsAllTime')
+            .then(res => {
+                if (!res.ok) throw new Error('huggingface');
+                return res.json();
+            })
+            .then(data => {
+                const total = Number(data.downloadsAllTime != null ? data.downloadsAllTime : data.downloads);
+                if (!Number.isFinite(total)) throw new Error('count');
+                animateCount(total);
+            })
+            .catch(() => {
+                nodes.forEach(el => { el.textContent = 'see Hub'; });
+            });
+    })();
     </script>
 </body>
 </html>
